@@ -1,15 +1,41 @@
+import 'package:final_project_viewpage/Services/getWeather.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project_viewpage/Models/Destinations.dart';
 
 class DestinationPage extends StatefulWidget {
-  final int siteindex;
-  const DestinationPage({super.key, required this.siteindex});
+  final String siteName;
+  final locationWeather;
+  const DestinationPage(
+      {super.key, required this.siteName, this.locationWeather});
 
   @override
   State<DestinationPage> createState() => _DestinationPageState();
 }
 
 class _DestinationPageState extends State<DestinationPage> {
+  WeatherModel weather = WeatherModel();
+  late double temp;
+  late String weatherIcon;
+
+  @override
+  void initState() {
+    super.initState();
+    updateUi(widget.locationWeather);
+  }
+
+  void updateUi(dynamic weatherData) {
+    if (weatherData == null) {
+      temp = 0;
+      weatherIcon = '';
+      return;
+    }
+    setState(() {
+      temp = weatherData['main']['temp'];
+      var condition = weatherData['weather'][0]['id'];
+      weatherIcon = weather.getWeatherIcon(condition);
+    });
+  }
+
   List<bool> expanded = [false, false, false, false];
   SiteStorage mysiteStorage = SiteStorage();
 
@@ -29,7 +55,7 @@ class _DestinationPageState extends State<DestinationPage> {
                   image: DecorationImage(
                     fit: BoxFit.fitWidth,
                     image: NetworkImage(
-                        mysiteStorage.getSiteImage(index: widget.siteindex)),
+                        mysiteStorage.getSiteImage(siteName: widget.siteName)),
                   ),
                 ),
               ),
@@ -38,8 +64,13 @@ class _DestinationPageState extends State<DestinationPage> {
               height: 150,
               child: Container(
                 margin: EdgeInsets.all(15),
-                child: Text(
-                    mysiteStorage.getSiteDescription(index: widget.siteindex)),
+                child: Center(
+                  child: Text(
+                    '${temp.toInt()}°',
+                  ),
+                ),
+                // child: Text(
+                //     mysiteStorage.getSiteDescription(siteName: widget.siteName)),
               ),
             ),
             Padding(

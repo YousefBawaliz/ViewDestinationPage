@@ -1,4 +1,5 @@
 import 'package:final_project_viewpage/Models/Destinations.dart';
+import 'package:final_project_viewpage/Screens/LoadingScreen.dart';
 import 'package:final_project_viewpage/Screens/ViewDestinationPage.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +19,24 @@ class _testPageState extends State<testPage> {
         children: [
           ElevatedButton(
             onPressed: () {
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => DestinationPage(
+              //         siteName: "Jarash",
+              //       ),
+              //     ));
+
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DestinationPage(
-                      siteindex: 0,
-                    ),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoadingScreen(
+                      siteName: "Petra",
+                    );
+                  },
+                ),
+              );
             },
             child: Text("Petra"),
           ),
@@ -34,11 +46,13 @@ class _testPageState extends State<testPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DestinationPage(siteindex: 1),
+                  builder: (context) => LoadingScreen(
+                    siteName: "Aqaba",
+                  ),
                 ),
               );
             },
-            child: Text("Jerash"),
+            child: Text("Aqaba"),
           ),
         ],
       ),
