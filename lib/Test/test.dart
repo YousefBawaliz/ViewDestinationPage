@@ -10,6 +10,6 @@ class name extends StatefulWidget {
 class _nameState extends State<name> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Center();
   }
 }
