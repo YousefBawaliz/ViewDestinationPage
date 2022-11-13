@@ -11,7 +11,9 @@ class _nameState extends State<name> {
   @override
   Widget build(BuildContext context) {
     return Container(
-    child: Center(),
+    child: Center(
+    Container(),
+    ),
     );
   }
 }
